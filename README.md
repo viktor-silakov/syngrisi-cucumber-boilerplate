@@ -6,7 +6,7 @@ This project is based on [WebdriverIO Cucumber Boilerplate](https://github.com/w
 ## Quick start
 - clone the repo
 - install dependencies: via `npm install` command
-- set up your local environment variables `SYNGRISI_HOST`, `SYNGRISI_PORT`, `SYNGRISI_API_KEY` and `SYNGRISI_PROJECT`
+- set up your local environment variables `SYNGRISI_HOST`, `SYNGRISI_PORT`, `SYNGRISI_API_KEY` and `SYNGRISI_PROJECT`. You can skip configure `SYNGRISI_HOST`, `SYNGRISI_PORT` variables if you use default values (localhost/3000)
 - run certain test feature:
 ```sh
 npx wdio wdio.conf.ts --spec src/features/syngrisi/simpleDemo.feature
