@@ -1,6 +1,21 @@
 import path from 'path';
 import { hooks } from './src/support/hooks';
 
+const syngrisiHost = process.env.SYNGRISI_HOST || 'localhost';
+const syngrisiPort = process.env.SYNGRISI_HOST || '3000';
+const syngrisiService = [
+    'syngrisi-cucumber',
+    {
+        endpoint: `http://${syngrisiHost}:${syngrisiPort}/`,
+        apikey: process.env.SYNGRISI_API_KEY || '',
+        app: process.env.SYNGRISI_PROJECT || 'My project',
+        branch: 'master',
+        runname: process.env.RUN_NAME,
+        runident: process.env.RUN_IDENT,
+        // if tag is empty the visual session will be created for all scenarios
+        tag: '@visual',
+    },
+];
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -10,6 +25,7 @@ export const config: WebdriverIO.Config = {
     // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
     // on a remote machine).
     runner: 'local',
+    automationProtocol: 'webdriver',
     //
     // ==================
     // Specify Test Files
@@ -69,7 +85,7 @@ export const config: WebdriverIO.Config = {
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: 'trace',
-    outputDir: path.join(__dirname, '/logs'),
+    // outputDir: path.join(__dirname, '/logs'),
     //
     // Set specific log levels per logger
     // loggers:
@@ -110,7 +126,8 @@ export const config: WebdriverIO.Config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
+
+    services: [syngrisiService, 'chromedriver'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -157,9 +174,7 @@ export const config: WebdriverIO.Config = {
         profile: [],
         // <string[]> (file/dir) require files before executing features
         require: [
-            './src/steps/given.ts',
-            './src/steps/then.ts',
-            './src/steps/when.ts',
+            './src/steps/*.ts',
             // Or search a (sub)folder for JS files with a wildcard
             // works since version 1.1 of the wdio-cucumber-framework
             // './src/**/*.js',
@@ -177,7 +192,7 @@ export const config: WebdriverIO.Config = {
         // <boolean> add cucumber tags to feature or scenario name
         tagsInTitle: false,
         // <number> timeout for step definitions
-        timeout: 20000,
+        timeout: 180000,
     } as WebdriverIO.CucumberOpts,
     ...hooks,
 };
