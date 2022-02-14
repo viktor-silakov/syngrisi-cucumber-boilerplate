@@ -31,4 +31,4 @@ You can add any step definition you need based on `browser.syngrisiCheck(name, b
 
 >`browser.syngrisiCheck(name, buffer)`
 - `name` - the name of check 
-- `buffer` - base64 image buffer_ 
+- `buffer` - base64 image buffer
