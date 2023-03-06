@@ -1,4 +1,5 @@
 import { Given, When, Then } from '@cucumber/cucumber';
+import fs from 'fs';
 
 const visualCheck = async (name: string, buffer: Buffer) => {
     const result = await browser.syngrisiCheck(name, buffer);
@@ -14,9 +15,20 @@ When(/^I visually check viewport as "([^"]*)"$/, async function (name) {
     await visualCheck(name, imageBuffer);
 
 });
+
+When(/^I visually check whole page as "([^"]*)"$/, async function (name) {
+    const result = await browser.saveFullPageScreen();
+    const imageBuffer = fs.readFileSync(`${result.path}/${result.fileName}`);
+    await visualCheck(name, imageBuffer);
+});
+
 When(/^I visually check "([^"]*)" element as "([^"]*)"$/, async function (selector, name) {
     const element = await $(selector);
     const ss = await browser.takeElementScreenshot(element.elementId);
     const imageBuffer = Buffer.from(ss, 'base64');
     await visualCheck(name, imageBuffer);
+});
+
+When(/^I start debugger$/, async function () {
+    await browser.debug();
 });

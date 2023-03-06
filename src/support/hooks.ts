@@ -1,3 +1,5 @@
+import fs from 'fs-extra';
+
 //
 // =====
 // Hooks
@@ -13,8 +15,9 @@ export const hooks = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    onPrepare: function (config, capabilities) {
+        fs.emptyDirSync('./.tmp/actual');
+    },
     /**
      * Gets executed before a worker process is spawned & can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -138,8 +141,15 @@ export const hooks = {
      */
     // beforeFeature: function (uri, feature, scenarios) {
     // },
-    // beforeScenario: function (uri, feature, scenario, sourceLocation) {
-    // },
+    beforeScenario: function (obj) {
+        const scenario = obj.pickle;
+        const tags = scenario.tags ? scenario.tags.map((x) => x.name) : [];
+        if (!tags.includes('@visual')) {
+            browser.addCommand('syngrisiCheck', async function () {
+                throw new Error('Syngrisi does not initialized, please check if the scenario has the "@visual" tag');
+            });
+        }
+    },
     // beforeStep: function ({uri, feature, step}, context) {
     // },
     // afterStep: function ({uri, feature, step}, context, {error, result, duration, passed}) {

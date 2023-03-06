@@ -72,6 +72,10 @@ export const config: WebdriverIO.Config = {
         maxInstances: 5,
         //
         browserName: 'chrome',
+        'goog:chromeOptions': {
+            args: ['--window-size=1920,1080'],
+            excludeSwitches: ['enable-automation'],
+        },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -84,7 +88,7 @@ export const config: WebdriverIO.Config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'trace',
+    logLevel: 'debug',
     // outputDir: path.join(__dirname, '/logs'),
     //
     // Set specific log levels per logger
@@ -127,7 +131,23 @@ export const config: WebdriverIO.Config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
 
-    services: [syngrisiService, 'chromedriver'],
+    services: [
+        syngrisiService,
+        'chromedriver',
+        'image-comparison',
+        [
+            'static-server',
+            {
+                port: 8888,
+                folders: [
+                    {
+                        mount: '/',
+                        path: path.join(process.cwd(), 'demo-app-syngrisi'),
+                    },
+                ],
+            },
+        ],
+    ],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -192,7 +212,7 @@ export const config: WebdriverIO.Config = {
         // <boolean> add cucumber tags to feature or scenario name
         tagsInTitle: false,
         // <number> timeout for step definitions
-        timeout: 180000,
+        timeout: 540000,
     } as WebdriverIO.CucumberOpts,
     ...hooks,
 };

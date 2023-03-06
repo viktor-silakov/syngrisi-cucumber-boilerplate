@@ -5,5 +5,7 @@ import { Selector } from 'webdriverio';
  * @param  {String}   selector Element selector
  */
 export default async (selector: Selector) => {
-    await $(selector).scrollIntoView();
+    await $(selector)
+        .scrollIntoView();
+    await browser.pause(1000);
 };
