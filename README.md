@@ -8,10 +8,7 @@ definition for Syngrisi visual checks.
 
 ## Quick start
 
-![Short Demo](video/cbp_demo.mp4)
-<video autoplay loop style="width:600px; height: auto; position:absolute; z-index: -1;">
-  <source src="./video/cbp_demo.mp4" type="video/mp4" />
-</video>
+https://user-images.githubusercontent.com/23633060/225082932-00bd7921-501b-43ae-a7f1-78dc65ba758c.mp4
 
 ### Set up the project
 
