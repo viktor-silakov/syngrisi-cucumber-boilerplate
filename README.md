@@ -10,7 +10,7 @@ definition for Syngrisi visual checks.
 
 ![Short Demo](video/cbp_demo.mp4)
 <video autoplay loop style="width:600px; height: auto; position:absolute; z-index: -1;">
-  <source src="video/cbp_demo.mp4" type="video/mp4" />
+  <source src="./video/cbp_demo.mp4" type="video/mp4" />
 </video>
 
 ### Set up the project
