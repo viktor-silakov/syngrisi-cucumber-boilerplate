@@ -142,7 +142,7 @@ export const config: WebdriverIO.Config = {
                 folders: [
                     {
                         mount: '/',
-                        path: path.join(process.cwd(), 'demo-app-syngrisi'),
+                        path: path.join(process.cwd(), 'src/syngrisi-demo-app/dist'),
                     },
                 ],
             },

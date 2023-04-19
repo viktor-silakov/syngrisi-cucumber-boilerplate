@@ -26,13 +26,18 @@
   ],
   "scripts": {
     "clean": "read -p \"Are you sure you want to clean the project? [y/n] \" REPLY; if [[ $REPLY =~ ^[Yy]$ ]]; then rm -R .git .github demo-app test .codeclimate.yml .travis.yml jest.json wdio.BUILD.conf.js src/features/**; fi",
+    "dev": "vite dev",
+    "build": "node multi-build.js",
     "test": "wdio wdio.conf.ts --spec src/features/syngrisi/simpleDemo.feature",
     "test:lint": "eslint 'src/**/*.ts' 'test/**/*.js!(setup.js)'",
     "test:unit": "jest --config=jest.config.js --detectOpenHandles",
     "test:features": "wdio run wdio.BUILD.conf.ts",
     "wdio": "wdio run wdio.conf.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
+    "vite": "^4.2.2"
+  },
   "devDependencies": {
     "@types/jest": "^29.4.0",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
